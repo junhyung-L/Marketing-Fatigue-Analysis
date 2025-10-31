@@ -1,4 +1,3 @@
-# marketing-mix
 ## 추가 피처(Features) — 무엇 / 왜 / 어떻게 / 도메인지식
 
 ## 목차

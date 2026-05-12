@@ -56,8 +56,9 @@ graph TD
     end
 
     subgraph Algorithm_Debate [2. The Tabular Data Debate]
-        C --> D[Tree-based <br> XGBoost, RF]
-        C --> E[Deep Learning <br> LSTM, CNN, MLP]
+        C --> D[Tree-based ML <br> XGBoost, Random Forest]
+        C --> E[Deep Learning <br> MLP, RNN, LSTM, CNN]
+        C --> H[Hybrid DL <br> RNN-LSTM, CNN-LSTM]
     end
 
     subgraph Business_Impact [3. XAI & ROI Optimization]

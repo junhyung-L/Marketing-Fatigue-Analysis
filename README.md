@@ -150,6 +150,8 @@ ecommerce_journey/
 ├── docs/                  # Original Thesis (DOCX) & BigQuery SQL queries
 ├── images/                # Charts, plots, and architecture diagrams
 ├── notebooks/             # Exploratory Data Analysis & Prototyping
+├── Prior research paper/  # Academic references (References.md)
+├── results/               # SHAP outputs & Descriptive Statistics
 └── src/                   # Production-Ready Python Modules
     ├── data_loader.py     # Centralized data loading & sampling
     ├── metrics.py         # Custom evaluation metrics (AUC, AIC, BIC)

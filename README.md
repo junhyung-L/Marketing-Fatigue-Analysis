@@ -64,6 +64,32 @@ This research handles over 170 million raw events from the REES46 eCommerce data
 ## 🧠 3. Domain-Knowledge Feature Engineering (도메인 특성 조작화)
 The core philosophy of this research is: *"When data is extremely sparse (0.12%), do not rely solely on the algorithm to find patterns; explicitly inject marketing domain knowledge into the input space."* 
 
+```mermaid
+graph TD
+    A[Domain-Knowledge Feature Engineering] --> B(1. Purchase Cycles)
+    A --> C(2. Marketing Fatigue)
+    A --> D(3. Temporal Dynamics)
+    A --> E(4. Content Novelty & Path)
+
+    B --> B1[Ready-to-Buy Probability]
+    B --> B2[Post-Purchase Cooldown]
+    
+    C --> C1[Exponential Decay]
+    C --> C2[Channel Half-life Penalty]
+    
+    D --> D1[Circadian Rhythm Alignment]
+    D --> D2[Payday / Quarter-end Proximity]
+    
+    E --> E1[Message Exposure Freshness]
+    E --> E2[Markov Path Similarity]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:4px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bbf,stroke:#333,stroke-width:2px
+    style D fill:#bbf,stroke:#333,stroke-width:2px
+    style E fill:#bbf,stroke:#333,stroke-width:2px
+```
+
 We quantified 4 major marketing theories into dynamic variables to solve the limitations of traditional static CRM models (like basic RFM):
 
 ### 1. Purchase & Repurchase Cycles (Buy Till You Die 모델링)

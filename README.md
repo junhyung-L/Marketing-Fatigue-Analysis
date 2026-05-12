@@ -10,43 +10,20 @@ This repository contains the official code implementation, experimental benchmar
 
 The study tackles the limitations of deep learning in extreme sparsity environments by proposing a **Domain-Knowledge Driven Feature Engineering** framework. It bridges abstract marketing theories with real-world Machine Learning applications, proving the superiority of Data-Centric AI over pure Model-Centric approaches.
 
-## 🚀 Executive Summary (TL;DR) (실행 요약)
-- **The Challenge**: Real-world eCommerce log data (REES46) exhibits extreme sparsity (0.12% conversion rate). In this environment, purely data-driven time-series deep learning models (CNN, LSTM) tend to memorize noise, leading to severe overfitting and poor performance.
-- **The Solution**: Operationalized abstract marketing theories (Buy Till You Die, Habituation, Context-Dependent Preferences) into 4 trackable **Dynamic State Variables** using mathematical decay functions and circular statistics, injecting them directly into tree-based models.
+## 🚀 Executive Summary (TL;DR)
+- **The Challenge**: Real-world eCommerce log data exhibits extreme sparsity (0.12% conversion rate). In this environment, purely data-driven time-series deep learning models (CNN, LSTM) tend to memorize noise, leading to severe overfitting.
+- **The Solution**: Operationalized abstract marketing theories (Buy Till You Die, Habituation, Context-Dependent Preferences) into **Dynamic State Variables** using mathematical decay functions, injecting them directly into machine learning models.
 - **The Impact**: 
   - Achieved a **23.14% improvement in F1-score** compared to the baseline.
   - Reduced **marketing conversion costs by 13.1%** through SHAP-based threshold targeting.
-  - Empirically proved that lightweight tree models (**XGBoost**) heavily outperform complex deep learning architectures in sparse tabular data environments.
+  - Empirically proved that lightweight tree models (**XGBoost**) heavily outperform complex deep learning architectures in sparse tabular CRM data.
 
 ---
 
-## 🌟 Core Contributions (핵심 기여도)
-As a rigorous KCI-level academic study, this project stands out across three primary axes:
-
-1. **Academic Rigor**: Moving beyond static 'past purchase history', this research establishes that dynamically changing states—specifically 'Marketing Fatigue' and 'Temporal Dynamics'—are the most critical triggers for short-term purchase conversion.
-2. **Technical Depth**: Engineered a **hybrid pipeline** handling over 170 million multi-channel logs. It combines BigQuery SQL for heavy-lifting Window aggregations with Python-based complex non-linear mathematical transformations (e.g., exponential decay).
-3. **Business Impact**: Rather than stopping at predicted probabilities, we utilized SHAP directionality to answer: *"At what point should we stop marketing to a user (Cooldown)?"* This derived clear thresholds that immediately translated into marketing budget savings.
-
----
-
-## 🧠 1. Domain-Knowledge Feature Engineering (도메인 지식 기반 피처 엔지니어링)
-The core philosophy of this research is: *"When data is sparse or noisy, do not scale the algorithm; inject domain knowledge into the data itself."*
-
-1. **Marketing Fatigue (소비자 습관화 및 베버-페히너 법칙)**
-   - Instead of simply summing clicks, we designed an **Exponential Decay cumulative function** that accounts for channel-specific half-lives (Email, Push, SMS) to measure real-time user fatigue.
-2. **Purchase & Repurchase Cycles (Buy Till You Die 모델링)**
-   - Borrowing concepts from Survival Analysis, we mapped post-purchase "Cooldown" periods and "Readiness to Buy" as continuous random variables.
-3. **Temporal Dynamics (상황 의존적 선호)**
-   - Utilized Circular Statistics to extract vectors representing a user's time-of-day preference alignment, while incorporating calendar effects like paydays or end-of-quarter surges.
-
-![Feature Correlation](images/corrplot_upper_moveY_to_diag.png)
-*Note: A correlation matrix validating that the newly engineered dynamic variables control multicollinearity and retain independent informational value.*
-
----
-
-## 🛠️ 2. System Architecture (파이프라인 아키텍처)
-
-![Research Framework](images/프레임워크.png)
+## 📌 1. Problem Definition (문제 정의)
+- **Background**: The digital customer journey has evolved into a highly fragmented, non-linear set of touchpoints across multiple channels (Email, Push, SMS). 
+- **The Pitfall of Deep Learning**: Current industry trends default to adopting complex deep learning (RNN, LSTM) for sequence modeling. However, CRM data is fundamentally different from image or text data—it is highly discontinuous and extremely sparse.
+- **Vision**: To shift from a "Model-Centric" paradigm to a **"Data-Centric"** one by enriching the input space with established marketing domain knowledge, narrowing the algorithm's search space and improving generalization.
 
 ```mermaid
 graph TD
@@ -70,33 +47,66 @@ graph TD
     style Algorithm_Debate fill:#bbf,stroke:#333,stroke-width:2px
     style Business_Impact fill:#bfb,stroke:#333,stroke-width:2px
 ```
+*Figure 1: Overall methodology combining Domain-Knowledge injection, Algorithm Benchmarking, and XAI optimization.*
 
 ---
 
-## 📈 3. Key Findings: The Tabular Data Debate (실증 분석 결과: 알고리즘 논쟁)
+## 🛠️ 2. System Architecture (시스템 프레임워크)
+This research handles over 170 million raw events from the REES46 eCommerce dataset. To process this scale efficiently, a hybrid BigQuery and Python pipeline was developed.
 
-### The Limits of Deep Learning vs. The Triumph of XGBoost
+![Research Framework](images/프레임워크.png)
+*Figure 2: Data Pipeline and Modeling Framework from the original academic paper.*
+
+---
+
+## 🧠 3. Domain-Knowledge Feature Engineering (도메인 특성 조작화)
+The core philosophy of this research is: *"When data is sparse or noisy, do not scale the algorithm; inject domain knowledge into the data itself."* We quantified 4 major marketing theories:
+
+1. **Marketing Fatigue (소비자 습관화 및 베버-페히너 법칙)**
+   - Designed an **Exponential Decay cumulative function** accounting for channel-specific half-lives (Email, Push, SMS) to measure real-time user fatigue.
+2. **Purchase & Repurchase Cycles (Buy Till You Die 모델링)**
+   - Mapped post-purchase "Cooldown" periods and "Readiness to Buy" based on survival analysis.
+3. **Temporal Dynamics (상황 의존적 선호)**
+   - Utilized Circular Statistics to extract vectors representing a user's time-of-day preference alignment and calendar effects (paydays, quarter-end).
+4. **Content Novelty (정보 엔트로피)**
+   - Quantified the freshness of marketing messages to measure attention-grabbing potential.
+
+![Feature Correlation](images/corrplot_upper_moveY_to_diag.png)
+*Figure 3: Correlation matrix validating that the engineered dynamic variables retain independent informational value without causing severe multicollinearity.*
+
+---
+
+## 📈 4. Modeling & Evaluation: The Tabular Data Debate
+We benchmarked 8 distinct algorithms (XGBoost, RF, MLP, CNN, LSTM, RNN, CNN-LSTM, RNN-LSTM) to test the hypothesis that Tree-based models outperform Deep Learning on sparse tabular data.
+
+### The Triumph of XGBoost
 In CRM data with 0.12% sparsity, discontinuous and non-linear domain rules carry far more weight than continuous time-series patterns.
 
 ![Model Performance Radar Chart](images/radar_chart_all_models_no_baseline_legend_bottom.png)
+*Figure 4: Radar chart comparing the predictive performance across the 8 evaluated models.*
 
-- **Results**: **XGBoost**, injected with our domain knowledge features, recorded a Precision of 0.9670 and a Recall of 0.8438, completely dominating complex sequence-learning deep models (CNN, LSTM) across all evaluation metrics.
-- **Insight**: This serves as empirical proof that in tabular data domains, the synergy of "Right Technology" and robust Feature Engineering is vastly more powerful than the indiscriminate adoption of deep learning.
+- **Quantitative Results**: **XGBoost** recorded an overwhelming Precision of **0.9670** and Recall of **0.8438**, outperforming complex sequence-learning models (CNN, LSTM) across all metrics.
+- **Academic Insight**: This serves as empirical proof that in tabular data domains, the synergy of "Right Technology" and robust Feature Engineering is vastly more powerful than the indiscriminate adoption of Deep Learning.
 
 ---
 
-## 🔍 4. Actionable XAI: SHAP Analysis (XAI 기반 의사결정 메커니즘)
+## 🔍 5. Explainable AI (XAI) & Business Impact
 To critically embrace our model beyond a "black box," we applied TreeSHAP to analyze the directionality and thresholds of how features impact actual purchase probabilities.
 
-![SHAP Summary Top 30](images/shap_summary_top30.png)
-![SHAP Directionality](images/shap_방향성.png)
+<div style="display: flex; justify-content: space-around;">
+  <img src="images/shap_summary_top30.png" alt="SHAP Summary" width="48%"/>
+  <img src="images/shap_방향성.png" alt="SHAP Directionality" width="48%"/>
+</div>
+<br>
+*Figure 5: SHAP Value Summary mapping the top 30 features (Left) and the Feature Directionality analysis identifying specific threshold behaviors (Right).*
 
-- **Identifying the Fatigue Threshold**: We visually confirmed that once the 'Marketing Fatigue' variable exceeds a specific threshold, the probability of purchase sharply bends into the negative (-) direction.
-- **Budget Optimization**: By simulating a logic that halts targeting for users entering this "Cooldown" phase based on the discovered threshold, we successfully **reduced wasteful marketing spend by 13.1%**.
+### Actionable Marketing ROI
+- **Identifying the Fatigue Threshold**: The directionality analysis (Right) visually confirms that once the 'Marketing Fatigue' variable exceeds a specific threshold, the probability of purchase sharply bends into the negative (-) direction.
+- **Budget Optimization**: By simulating a business logic that halts targeting for users entering this "Cooldown" phase (based on the discovered threshold), the framework successfully **reduced wasteful marketing spend by 13.1%** while maintaining the exact same number of successful conversions.
 
 ---
 
-## 📁 5. Repository Structure
+## 📁 6. Repository Structure
 ```text
 ecommerce_journey/
 ├── data/                  # Data directory (Raw & Engineered Parquet)
@@ -112,7 +122,7 @@ ecommerce_journey/
     └── run_all.py         # Automated pipeline runner for benchmark reproduction
 ```
 
-## ⚙️ 6. How to Run
+## ⚙️ 7. How to Run
 This project is modularized to fully reproduce the 8-algorithm benchmark from the paper.
 ```bash
 # 1. Execute Domain-Knowledge Feature Engineering

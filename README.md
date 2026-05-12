@@ -144,17 +144,7 @@ python src/train.py --model xgb
 python src/run_all.py
 ```
 
-## 📚 8. Key References (핵심 참고문헌)
-This research is built upon the foundational theories of Data-Centric AI, Behavioral Economics, and Tabular Machine Learning.
-
-1. **Tabular Data & Machine Learning**: Grinsztajn, L., Oyallon, E., & Varoquaux, G. (2022). "Why do tree-based models still outperform deep learning on typical tabular data?" *Advances in neural information processing systems*.
-2. **Buy Till You Die (BTYD) Model**: Fader, P. S., Hardie, B. G., & Lee, K. L. (2005). "RFM and CLV: Using iso-value curves for customer base analysis." *Journal of marketing research*.
-3. **Consumer Habituation (Fatigue)**: Wathieu, L. (2004). "Consumer habituation." *Management Science*.
-4. **Temporal Dynamics**: Koren, Y. (2009). "Collaborative filtering with temporal dynamics." *KDD*.
-5. **Explainable AI (SHAP)**: Lundberg, S. M., et al. (2020). "From local explanations to global understanding with explainable AI for trees." *Nature machine intelligence*.
-6. **Data-Centric AI**: Zha, D., et al. (2025). "Data-centric artificial intelligence: A survey." *ACM Computing Surveys*.
-
-## 👥 9. Contributors
+## 👥 8. Contributors
 - **Junhyung L.** (Project Lead)
 
 ---

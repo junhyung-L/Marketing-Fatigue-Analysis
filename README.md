@@ -60,19 +60,28 @@ This research handles over 170 million raw events from the REES46 eCommerce data
 ---
 
 ## 🧠 3. Domain-Knowledge Feature Engineering (도메인 특성 조작화)
-The core philosophy of this research is: *"When data is sparse or noisy, do not scale the algorithm; inject domain knowledge into the data itself."* We quantified 4 major marketing theories:
+The core philosophy of this research is: *"When data is extremely sparse (0.12%), do not rely solely on the algorithm to find patterns; explicitly inject marketing domain knowledge into the input space."* 
 
-1. **Marketing Fatigue (소비자 습관화 및 베버-페히너 법칙)**
-   - Designed an **Exponential Decay cumulative function** accounting for channel-specific half-lives (Email, Push, SMS) to measure real-time user fatigue.
-2. **Purchase & Repurchase Cycles (Buy Till You Die 모델링)**
-   - Mapped post-purchase "Cooldown" periods and "Readiness to Buy" based on survival analysis.
-3. **Temporal Dynamics (상황 의존적 선호)**
-   - Utilized Circular Statistics to extract vectors representing a user's time-of-day preference alignment and calendar effects (paydays, quarter-end).
-4. **Content Novelty (정보 엔트로피)**
-   - Quantified the freshness of marketing messages to measure attention-grabbing potential.
+We quantified 4 major marketing theories into dynamic variables to solve the limitations of traditional static CRM models (like basic RFM):
+
+### 1. Purchase & Repurchase Cycles (Buy Till You Die 모델링)
+- **Why?**: Traditional RFM models fail to capture the "Cooldown" effect. Behavioral economics dictates that purchase probability drops immediately after a transaction and gradually rises as it approaches the user's natural repurchase cycle.
+- **How?**: Borrowing from Survival Analysis, we modeled a **`Ready-to-Buy`** probabilistic density function based on an individual's past purchase intervals, alongside a dynamic **`Cooldown`** penalty variable.
+
+### 2. Marketing Fatigue (광고 마모 효과 및 베버-페히너 법칙)
+- **Why?**: Information Processing Theory and the Weber-Fechner Law suggest that repeated, excessive marketing stimuli increase a consumer's sensory threshold, causing fatigue and actually *decreasing* conversion rates.
+- **How?**: We engineered an **Exponential Decay (지수 감쇠) cumulative function**. To reflect reality, we assigned different decay half-lives based on channel intrusiveness (`SMS < Push < Email`), tracking the real-time accumulated fatigue of each user.
+
+### 3. Temporal Dynamics (시점 역동성 및 캘린더 효과)
+- **Why?**: Consumer preferences are not static. Cognitive receptiveness aligns with circadian rhythms, and purchasing power fluctuates with economic events (e.g., paydays).
+- **How?**: Utilized **Circular Statistics (Cosine Distance)** to calculate how closely a message's send time aligns with a user's historical preferred activity time. Added proximity variables for paydays and quarter-ends to capture temporary spikes in disposable income.
+
+### 4. Content Novelty & Path Efficiency (콘텐츠 신규성과 마코프 경로)
+- **Why?**: Based on Shannon's Information Entropy, repetitive messages lose value. Furthermore, the modern customer journey is a non-linear Markov process where channel sequence matters.
+- **How?**: Quantified the "Freshness" of a message by combining recent exposure frequency with elapsed time. Measured path efficiency by calculating the similarity between a user's current touchpoint sequence and historically successful conversion paths.
 
 ![Feature Correlation](images/corrplot_upper_moveY_to_diag.png)
-*Figure 3: Correlation matrix validating that the engineered dynamic variables retain independent informational value without causing severe multicollinearity.*
+*Figure 3: Correlation matrix validating that the engineered dynamic variables retain independent informational value without causing severe multicollinearity (most linear correlations < 0.2).*
 
 ---
 

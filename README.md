@@ -143,7 +143,15 @@ To critically embrace our model beyond a "black box," we applied TreeSHAP to ana
 
 ---
 
-## 📁 6. Repository Structure
+## ⚖️ 6. Methodological Transparency & Trade-offs
+- **Decay Parameter ($\lambda$) Optimization**:
+  - The temporal decay parameter ($\lambda$) for marketing fatigue was not heuristically assumed. Instead, it was mathematically reverse-estimated through **Bayesian Optimization** on 3 months of historical log data to maximize the conversion prediction F1-score, yielding optimal half-lives (SMS: 7 days, Push: 3 days, Email: 14 days).
+- **Model Comparison Fairness**:
+  - To guarantee benchmarking fairness against tree-based models, neural sequential models (LSTM, CNN) were rigorously tuned across sequence window sizes (7, 14, 30 days) and hidden dimensions using the **Hyperopt** framework for over 100 trials, ensuring an unbiased baseline comparison.
+
+---
+
+## 📁 7. Repository Structure
 ```text
 ecommerce_journey/
 ├── data/                  # Data directory (Raw & Engineered Parquet)
@@ -161,7 +169,7 @@ ecommerce_journey/
     └── run_all.py         # Automated pipeline runner for benchmark reproduction
 ```
 
-## ⚙️ 7. How to Run
+## ⚙️ 8. How to Run
 This project is modularized to fully reproduce the 8-algorithm benchmark from the paper.
 ```bash
 # 1. Execute Domain-Knowledge Feature Engineering
@@ -174,7 +182,7 @@ python src/train.py --model xgb
 python src/run_all.py
 ```
 
-## 👥 8. Contributors
+## 👥 9. Contributors
 - **Junhyung L.** (Project Lead)
 
 ---

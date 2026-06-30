@@ -1,14 +1,8 @@
-# 🎓 KCI Academic Paper: Investigating Marketing Fatigue and Purchase Dynamics via Data-Centric AI
-*(한국학술지인용색인(KCI) 투고 논문: 데이터 중심 AI를 통한 마케팅 피로도와 구매 역동성 규명)*
-
 [![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/)
 [![Google BigQuery](https://img.shields.io/badge/Google_BigQuery-669DF6?logo=googlebigquery&logoColor=white)](https://cloud.google.com/bigquery)
 [![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?logo=tensorflow&logoColor=white)](https://www.tensorflow.org/)
 [![Scikit-Learn](https://img.shields.io/badge/scikit--learn-F7931E?logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
 [![SHAP](https://img.shields.io/badge/XAI-SHAP-success.svg)]()
-[![Paper Status](https://img.shields.io/badge/Status-Under_Review_(KCI)-orange.svg)]()
-
-This repository contains the official code implementation, experimental benchmarks, and supplementary materials for the research paper, **"Investigating Marketing Fatigue and Purchase Dynamics via Data-Centric AI"**, currently under peer review for publication in a **KCI (Korea Citation Index)** indexed academic journal.
 
 The study tackles the limitations of deep learning in extreme sparsity environments by proposing a **Domain-Knowledge Driven Feature Engineering** framework. It bridges abstract marketing theories with real-world Machine Learning applications, proving the superiority of Data-Centric AI over pure Model-Centric approaches.
 
@@ -154,33 +148,9 @@ To critically embrace our model beyond a "black box," we applied TreeSHAP to ana
 ## 📁 7. Repository Structure
 ```text
 ecommerce_journey/
-├── data/                  # Data directory (Raw & Engineered Parquet)
 ├── docs/                  # Original Thesis (DOCX) & BigQuery SQL queries
 ├── images/                # Charts, plots, and architecture diagrams
-├── notebooks/             # Exploratory Data Analysis & Prototyping
-├── Prior research paper/  # Academic references (References.md)
-├── results/               # SHAP outputs & Descriptive Statistics
-└── src/                   # Production-Ready Python Modules
-    ├── data_loader.py     # Centralized data loading & sampling
-    ├── metrics.py         # Custom evaluation metrics (AUC, AIC, BIC)
-    ├── models.py          # Keras model architectures (CNN, LSTM, MLP)
-    ├── preprocessing.py   # Domain-feature engineering pipeline
-    ├── train.py           # Unified training script
-    └── run_all.py         # Automated pipeline runner for benchmark reproduction
-```
-
-## ⚙️ 8. How to Run
-This project is modularized to fully reproduce the 8-algorithm benchmark from the paper.
-```bash
-# 1. Execute Domain-Knowledge Feature Engineering
-python src/preprocessing.py
-
-# 2. Train and Evaluate the Best Model (XGBoost) & Extract SHAP
-python src/train.py --model xgb
-
-# 3. Reproduce the Full 8-Model Performance Benchmark
-python src/run_all.py
-```
+└── results/               # SHAP outputs & Descriptive Statistics
 
 ## 👥 9. Contributors
 - **Junhyung L.** (Project Lead)

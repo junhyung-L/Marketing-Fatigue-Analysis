@@ -151,8 +151,7 @@ To critically embrace our model beyond a "black box," we applied TreeSHAP to ana
 ```text
 ecommerce_journey/
 ├── docs/                  # Original Thesis (DOCX) & BigQuery SQL queries
-├── images/                # Charts, plots, and architecture diagrams
-└── results/               # SHAP outputs & Descriptive Statistics
+└── images/                # Charts, plots, and architecture diagrams
 
 ## 👥 9. Contributors
 - **Junhyung L.** (Project Lead)
